@@ -18,23 +18,22 @@
   </nav>
 
 
-<table>
-    <tr>
-    <th>Item Name</th>
-    <th>Item Price</th>
-    <th>Description</th>
-    </tr>
-    {% comment %} Add the data below this line {% endcomment %}
-    {% for item in list_item %}
-    <tr>
-        <th>{{item.item_name}}</th>
-        <th>{{item.item_price}}</th>
-        <th>{{item.description}}</th>
-    </tr>
-{% endfor %}
-</table>
 
 <br>
 <h5>Last Login: {{ last_login }}</h5>
 
+<script type="text/JavaScript">
+  $(document).ready(() => {
+    const url = "http://127.0.0.1:8000/wishlist/json/"
+    $.get(url, (data) => {
+      data.forEach((item) => {
+        var item_name = item.fields.item_name;
+        var item_price = item.fields.item_price;
+        var item_description = item.fields.item_description;
+        var html = "<tr><td>" + item_name + "</td><td>" + item_price + "</td><td>" + item_description + "</td>";
+        $("tbody").append(html);
+      })
+    })
+  })
+</script>
 {% endblock content %}
